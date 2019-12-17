@@ -40,7 +40,7 @@ def fillMenuData(menu, itemLinks):
         print(i)  # debug
         print(j)  # debug
         # Assigns all the item's info from the lists
-        for k in infoPage.findAll("table", attrs={"class": "item_itemtion"}):
+        for k in infoPage.findAll("table", attrs={"class": "item_nutrition"}):
             foodObject = {
                 "item": j,
                 "calories": "",
@@ -74,7 +74,7 @@ for i in hubPage.findAll('a', attrs={"class": "divider"}):
         "link": base + href,
         "logo": logoURL,
         "name": name,
-        "menu": fillMenuData(menu, itemLinks)
+        "menu": [fillMenuData(menu, itemLinks)]
     }
     data.append(restaurantObject)
 
