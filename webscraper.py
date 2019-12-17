@@ -43,15 +43,15 @@ def fillMenuData(menu, itemURLs):
         foodObject = {
             "item": i,
             "calories": "",
-            "serving": "",
-            "fatCals": "",
+            #"serving": "",
+            #"fatCals": "",
             "fat": "",
-            "satFat": "",
-            "transFat": "",
-            "cholesterol": "",
+            #"satFat": "",
+            #"transFat": "",
+            #"cholesterol": "",
             "sodium": "",
             "carbs": "",
-            "fiber": "",
+            #"fiber": "",
             "sugar": "",
             "protein": ""
         }
