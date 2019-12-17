@@ -37,8 +37,7 @@ def fillMenuData(menu, itemLinks):
     # Creates each item page and gets its name
     for i, j in zip(itemLinks, menu):
         infoPage = htmlToSoup(i)
-        print(i)  # debug
-        print(j)  # debug
+
         # Assigns all the item's info from the lists
         for k in infoPage.findAll("table", attrs={"class": "item_nutrition"}):
             foodObject = {
@@ -46,10 +45,19 @@ def fillMenuData(menu, itemLinks):
                 "calories": "",
                 "serving": "",
                 "fatCals": "",
-                "fat": ""
+                "fat": "",
+                "satFat": "",
+                "transFat": "",
+                "cholesterol": "",
+                "sodium": "",
+                "carbs": "",
+                "fiber": "",
+                "sugar": "",
+                "protein": ""
             }
             menuData.append(foodObject)
     return menuData
+
 
 hubPage = htmlToSoup(hub)
 
@@ -65,10 +73,16 @@ for i in hubPage.findAll('a', attrs={"class": "divider"}):
     for j in menuPage.findAll('div', attrs={"class": "filter_target"}):
         menu.append(j.get('title'))
 
+    # TODO: Creates calorie list; variable amounts are tagged as such
+    cals = []
+    calCount = menuPage.find(
+        'div', attrs={"class": "nutrition_button"}).get_text()
+    print(calCount)
+
     # Creates itemLinks list with item URLs
     itemLinks = []
-    for k in menuPage.findAll('a', attrs={"class": "listlink item_link active_item_link"}):
-        itemLinks.append(base + k.get('href'))
+    for l in menuPage.findAll('a', attrs={"class": "listlink item_link active_item_link"}):
+        itemLinks.append(base + l.get('href'))
 
     restaurantObject = {
         "link": base + href,
