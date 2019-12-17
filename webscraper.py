@@ -31,31 +31,31 @@ def htmlToSoup(website):
 
 # Helper method that fills foodObject JSON data from each store's menu.
 # Creates an empty list, goes to each food's page, and fills the list.
-def fillMenuData(menu, itemLinks):
+def fillMenuData(menu, itemURLs):
     menuData = []
 
     # Creates each item page and gets its name
-    for i, j in zip(itemLinks, menu):
-        infoPage = htmlToSoup(i)
+    for i, j in zip(menu, itemURLs):
+        infoPage = htmlToSoup(j)
+        # nutriFacts = infoPage.find('table') TODO: pull table data
 
         # Assigns all the item's info from the lists
-        for k in infoPage.findAll("table", attrs={"class": "item_nutrition"}):
-            foodObject = {
-                "item": j,
-                "calories": "",
-                "serving": "",
-                "fatCals": "",
-                "fat": "",
-                "satFat": "",
-                "transFat": "",
-                "cholesterol": "",
-                "sodium": "",
-                "carbs": "",
-                "fiber": "",
-                "sugar": "",
-                "protein": ""
-            }
-            menuData.append(foodObject)
+        foodObject = {
+            "item": i,
+            "calories": "",
+            "serving": "",
+            "fatCals": "",
+            "fat": "",
+            "satFat": "",
+            "transFat": "",
+            "cholesterol": "",
+            "sodium": "",
+            "carbs": "",
+            "fiber": "",
+            "sugar": "",
+            "protein": ""
+        }
+        menuData.append(foodObject)
     return menuData
 
 
@@ -75,20 +75,19 @@ for i in hubPage.findAll('a', attrs={"class": "divider"}):
 
     # TODO: Creates calorie list; variable amounts are tagged as such
     cals = []
-    calCount = menuPage.find(
-        'div', attrs={"class": "nutrition_button"}).get_text()
+    calCount = menuPage.find('div', attrs={"class": "nutrition_button"}).get_text()
     print(calCount)
 
-    # Creates itemLinks list with item URLs
-    itemLinks = []
+    # Creates itemURLs list with hrefs
+    itemURLs = []
     for l in menuPage.findAll('a', attrs={"class": "listlink item_link active_item_link"}):
-        itemLinks.append(base + l.get('href'))
+        itemURLs.append(base + l.get('href'))
 
     restaurantObject = {
         "link": base + href,
         "logo": logoURL,
         "name": name,
-        "menu": [fillMenuData(menu, itemLinks)]
+        "menu": [fillMenuData(menu, itemURLs)]
     }
     data.append(restaurantObject)
 
