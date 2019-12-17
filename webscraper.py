@@ -29,19 +29,24 @@ for i in hubPage.findAll('a', attrs={"class": "divider"}):
     menuPage = htmlToSoup(base + href)
     logoURL = base + menuPage.find('img', attrs={"class": "logo_float"})['src']
     name = menuPage.find('h3').text
-    menu = []
-    cals = []
+    menu = [], cals = []
 
     # Fills menu list
-    for k in menuPage.findAll('u', attrs={"class": "rest_item_list"}):
+    for k in menuPage.findAll('div', attrs={"class": "filter_target"}):
         menu.append(k.get('title'))
-        foodItem = htmlToSoup()
+        cals.append(k.get('data-calories'))
+        foodItemPage = htmlToSoup(base + k.get('href'))
+        serving = [], fatCals = [], fat = [], satFat = [], transFat = []
 
     restaurantObject = {
         "link": base + href,
         "logo": logoURL,
         "name": name,
-        "menu": menu
+        "menu": menu,
+        "calories": cals,
+        "serving": "",
+        "fatCals": "",
+        "fat": "",
     }
     data.append(restaurantObject)
 
