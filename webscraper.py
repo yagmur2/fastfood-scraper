@@ -23,7 +23,7 @@ data = []
 for i in content.findAll('a', attrs={"class": "divider"}):
     restaurantObject = {
         "link": hubPage + i.get('href'),
-        "name": i.get('href')[1:]
+        "name": i.get('href')[1:].capitalize()
     }
     data.append(restaurantObject)
 
