@@ -39,7 +39,7 @@ def fillMenuData(menu, itemURLs):
         infoPage = htmlToSoup(j)
         # nutriFacts = infoPage.find('table') TODO: pull table data
 
-        # Assigns all the item's info from the lists
+        # Assigns all the item's info from the sets
         foodObject = {
             "item": i,
             "calories": "",
@@ -68,21 +68,22 @@ for i in hubPage.findAll('a', attrs={"class": "divider"}):
     logoURL = base + menuPage.find('img', attrs={"class": "logo_float"})['src']
     name = menuPage.find('h3').text
 
-    # Creates menu list with names
-    menu = []
+    # Creates menu set with names
+    menu = set()
     for j in menuPage.findAll('div', attrs={"class": "filter_target"}):
-        menu.append(j.get('title'))
+        menu.add(j.get('title'))
 
-    # TODO: Creates calorie list; variable amounts are tagged as such
-    cals = []
-    calCount = menuPage.find('div', attrs={"class": "nutrition_button"}).get_text()
-    print(calCount)
+    # TODO: Creates calorie set; variable amounts are tagged as such
+    cals = set()
+    # calCount = menuPage.find('div', attrs={"class": "nutrition_button"}).get_text()
+    # print(calCount)
 
-    # Creates itemURLs list with hrefs
-    itemURLs = []
+    # Creates itemURLs set with hrefs
+    itemURLs = set()
     for l in menuPage.findAll('a', attrs={"class": "listlink item_link active_item_link"}):
-        itemURLs.append(base + l.get('href'))
-
+        itemURLs.add(base + l.get('href'))
+    print (itemURLs)
+    
     restaurantObject = {
         "link": base + href,
         "logo": logoURL,
